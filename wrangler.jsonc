@@ -1,0 +1,19 @@
+{
+  "$schema": "./node_modules/wrangler/config-schema.json",
+  "name": "school-manager-website",
+  "main": "worker.js",
+  "compatibility_date": "2026-08-13",
+  "assets": {
+    "directory": "./",
+    "binding": "ASSETS",
+    "run_worker_first": [
+      "/School-Manager-Setup.exe"
+    ]
+  },
+  "r2_buckets": [
+    {
+      "binding": "SCHOOL_MANAGER_APP",
+      "bucket_name": "school-manager-app"
+    }
+  ]
+}

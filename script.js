@@ -1,6 +1,7 @@
 "use strict";
 
 const INSTALLER_FILE = "School-Manager-Setup.exe";
+const UPDATE_MANIFEST_FILE = "update.json";
 const SCAN_IMAGES = [
   "assets/images/scan-paid.png",
   "assets/images/scan-unpaid.png",
@@ -299,7 +300,7 @@ const themeButton = document.querySelector(".icon-button");
 const root = document.documentElement;
 
 document.querySelectorAll("a.download-button").forEach((link) => {
-  link.href = "./" + INSTALLER_FILE;
+  link.href = "/" + INSTALLER_FILE;
   link.setAttribute("download", INSTALLER_FILE);
 });
 
