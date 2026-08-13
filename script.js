@@ -9,6 +9,160 @@ const SCAN_IMAGES = [
 
 const TRANSLATIONS = [
   [
+    "تحتاج وحدة QR إلى وحدة الجدول والحضور لأنها تسجّل حضور التلميذ داخل حصصه. عند اختيار QR تُضاف وحدة الحضور تلقائياً إلى الحاسبة.",
+    "Le module QR nécessite Planning et présences, car il enregistre l’élève dans ses séances. En choisissant QR, le module Présences est ajouté automatiquement au calcul.",
+  ],
+  [
+    "ابدأ بالأساسيات، ثم أضف الوحدات التي تختصر عملك فعلاً. سترى السعر النهائي والتخفيض المناسب مباشرة.",
+    "Commencez par l’essentiel, puis ajoutez uniquement les modules qui simplifient réellement votre travail. Le prix final et la remise apparaissent immédiatement.",
+  ],
+  [
+    "اختر النسخة الشاملة إذا أردت كل قوة البرنامج. أو ارجع إلى الحاسبة لتدفع فقط مقابل الوحدات التي ستستعملها فعلاً.",
+    "Choisissez la version complète pour profiter de toute la puissance du logiciel, ou revenez au calculateur pour ne payer que les modules réellement utiles.",
+  ],
+  [
+    "اختر اسماً لترى بالضبط ما تضيفه الوحدة إلى عملك اليومي قبل أن تقرر شراءها.",
+    "Sélectionnez un module pour voir précisément ce qu’il apporte à votre travail avant de l’acheter.",
+  ],
+  [
+    "قلب المدرسة المنظّم: كل تلميذ وفوج وأستاذ ودفعة في مكان واحد، واضح وسريع ولا يحتاج إلى جداول متناثرة.",
+    "Le cœur organisé de votre établissement : chaque élève, groupe, enseignant et paiement au même endroit, sans fichiers dispersés.",
+  ],
+  [
+    "كل الوحدات بـ 40,000 دج بدلاً من 48,000 دج.",
+    "Tous les modules à 40 000 DA au lieu de 48 000 DA.",
+  ],
+  [
+    "ستة وعود واضحة، مهما كانت الوحدات التي تختارها.",
+    "Six engagements clairs, quels que soient les modules choisis.",
+  ],
+  [
+    "ادفع فقط مقابل الأدوات التي تحتاجها مؤسستك.",
+    "Payez uniquement pour les outils dont votre établissement a besoin.",
+  ],
+  [
+    "البرنامج الأساسي كاملاً، ويمكنك إضافة أي وحدة لاحقاً.",
+    "Le logiciel de base complet, avec la possibilité d’ajouter un module plus tard.",
+  ],
+  [
+    "الأساسيات + الجدول والحضور + الأدوات والتقارير.",
+    "L’essentiel + planning et présences + outils et rapports.",
+  ],
+  [
+    "التلاميذ، الأفواج، الأساتذة، المدفوعات والإعدادات",
+    "Élèves, groupes, enseignants, paiements et paramètres",
+  ],
+  [
+    "الجدول والحضور وQR والتقارير والتحليل والطباعة",
+    "Planning, présences, QR, rapports, analyses et impression",
+  ],
+  [
+    "جميع الوحدات الحالية مشمولة",
+    "Tous les modules actuels sont inclus",
+  ],
+  [
+    "تعمل مع وحدة الجدول والحضور",
+    "Fonctionne avec le module Planning et présences",
+  ],
+  [
+    "كل الوحدات الحالية في رخصة واحدة دائمة.",
+    "Tous les modules actuels dans une licence permanente.",
+  ],
+  [
+    "تحتاج وحدة QR إلى وحدة الجدول والحضور",
+    "Le module QR nécessite Planning et présences",
+  ],
+  [
+    "حوّل الأرقام إلى مؤشرات مالية واضحة",
+    "Transformez vos chiffres en indicateurs financiers clairs",
+  ],
+  [
+    "تقارير جاهزة وتصدير PDF وExcel وCSV",
+    "Rapports prêts à l’emploi et exports PDF, Excel et CSV",
+  ],
+  [
+    "طباعة حرارية تلقائية عند تسجيل الدفع",
+    "Impression thermique automatique après paiement",
+  ],
+  [
+    "خطط الحصص وسجّل الحضور يدوياً بدقة",
+    "Planifiez les séances et enregistrez précisément les présences",
+  ],
+  [
+    "وفّر 8,000 دج • لا اشتراك شهري • لا رسوم تجديد",
+    "Économisez 8 000 DA • Sans mensualité • Sans renouvellement",
+  ],
+  [
+    "تحصل الرخصة المفعّلة على تحديثات البرنامج والوحدات التي اشتريتها دون رسوم تجديد شهرية أو سنوية.",
+    "La licence activée reçoit les mises à jour du logiciel et des modules achetés sans frais de renouvellement mensuels ou annuels.",
+  ],
+  ["ملفات تلاميذ كاملة مع الصور والبيانات", "Fiches élèves complètes avec photos et données"],
+  ["إدارة الأفواج والأساتذة والأسعار", "Gestion des groupes, enseignants et tarifs"],
+  ["حساب ذكي للشهر الأول والحالات الخاصة", "Calcul intelligent du premier mois et des cas particuliers"],
+  ["نسخ احتياطي واسترجاع آمن للبيانات", "Sauvegarde et restauration sécurisées des données"],
+  ["العربية والفرنسية مع واجهة واضحة", "Arabe et français dans une interface claire"],
+  ["دفع مستقل لكل فوج وشهر", "Paiement indépendant par groupe et par mois"],
+  ["ابدأ بما تحتاجه اليوم", "Commencez avec ce dont vous avez besoin aujourd’hui"],
+  ["للعمل اليومي المنظّم", "Pour une gestion quotidienne organisée"],
+  ["كل قوة البرنامج دون تنازل", "Toute la puissance du logiciel, sans compromis"],
+  ["الأساسيات مع الجدول والحضور والتقارير.", "L’essentiel avec planning, présences et rapports."],
+  ["كوّن نسختك واحسب سعرها", "Composez votre version et calculez son prix"],
+  ["عند اختيار QR تُضاف وحدة الحضور تلقائياً إلى الحاسبة.", "En choisissant QR, le module Présences est ajouté automatiquement au calculateur."],
+  ["هل يمكن شراء وحدة QR وحدها؟", "Peut-on acheter le module QR seul ?"],
+  ["ابتداءً من 20,000 دج", "À partir de 20 000 DA"],
+  ["ادفع فقط مقابل الوحدات التي تحتاجها", "Ne payez que les modules utiles"],
+  ["كوّن نسختك", "Composez votre version"],
+  ["اختيار وحدات البرنامج", "Choix des modules du logiciel"],
+  ["البرنامج الأساسي", "Logiciel de base"],
+  ["الجدول والحضور", "Planning et présences"],
+  ["مولّد وقارئ QR", "Générateur et scanner QR"],
+  ["الأدوات والتقارير", "Outils et rapports"],
+  ["طابعة الوصولات", "Imprimante de reçus"],
+  ["يعمل مع وحدة الجدول والحضور", "Fonctionne avec Planning et présences"],
+  ["مشمول دائماً", "Toujours inclus"],
+  ["يتطلب الحضور", "Présences requises"],
+  ["التحليل", "Analyse"],
+  ["اختيارك الحالي", "Votre sélection"],
+  ["حزمة التسيير", "Pack Gestion"],
+  ["السعر النهائي", "Prix final"],
+  ["السعر منفصلاً:", "Prix séparé :"],
+  ["وفّرت 3,000 دج", "Vous économisez 3 000 DA"],
+  ["شاهد خصائص كل وحدة", "Voir les fonctions de chaque module"],
+  ["أو اختر حزمة جاهزة", "Ou choisissez un pack prêt à l’emploi"],
+  ["الأساسية", "Essentiel"],
+  ["التسيير", "Gestion"],
+  ["الشاملة", "Complète"],
+  ["الأكثر ملاءمة", "Recommandée"],
+  ["اختر الأساسية", "Choisir Essentiel"],
+  ["اختر حزمة التسيير", "Choisir Gestion"],
+  ["اختر النسخة الشاملة", "Choisir la version complète"],
+  ["توفير 3,000 دج", "Économisez 3 000 DA"],
+  ["توفير 8,000 دج", "Économisez 8 000 DA"],
+  ["خصائص الوحدات", "Fonctions des modules"],
+  ["كل وحدة صُمّمت لتحلّ مشكلة حقيقية.", "Chaque module résout un problème concret."],
+  ["وحدات البرنامج", "Modules du logiciel"],
+  ["قاعدة عملك اليومية", "La base de votre travail quotidien"],
+  ["السعر", "Prix"],
+  ["أقوى تخفيض", "La meilleure économie"],
+  ["كوّن نسختك واحسب سعرها", "Composez votre version et calculez son prix"],
+  ["48,000 دج", "48 000 DA"],
+  ["40,000 دج", "40 000 DA"],
+  ["33,000 دج", "33 000 DA"],
+  ["20,000 دج", "20 000 DA"],
+  ["8,000 دج", "8 000 DA"],
+  ["7,000 دج", "7 000 DA"],
+  ["6,000 دج", "6 000 DA"],
+  ["5,000 دج", "5 000 DA"],
+  ["4,000 دج", "4 000 DA"],
+  [
+    "اضغط الصورة للتكبير ورؤية الواجهة كاملة",
+    "Touchez l’image pour l’agrandir et voir toute l’interface",
+  ],
+  [
+    "اسحب اللوحة أفقياً لرؤية التفاصيل بحجم واضح",
+    "Faites glisser horizontalement pour voir les détails clairement",
+  ],
+  [
     "نساعدك على إعداد البرنامج، إدخال أول بياناتك، تدريب الشخص الذي سيستعمله، وضبط طباعة الوصولات. وعندما يصل تحديث جديد أو تحتاج إلى تعديل ممكن، لن تبدأ من الصفر.",
     "Nous vous aidons à démarrer, à former l’utilisateur quotidien et à régler l’impression. Une mise à jour ou une évolution réalisable ne vous oblige pas à repartir de zéro.",
   ],
@@ -294,6 +448,19 @@ const ARABIC_TO_FRENCH = new Map(TRANSLATIONS);
 const FRENCH_TO_ARABIC = new Map(
   TRANSLATIONS.map(([arabic, french]) => [french, arabic]),
 );
+const normalizeTranslationKey = (value) => value.replace(/\s+/g, " ").trim();
+const NORMALIZED_ARABIC_TO_FRENCH = new Map(
+  TRANSLATIONS.map(([arabic, french]) => [
+    normalizeTranslationKey(arabic),
+    french,
+  ]),
+);
+const NORMALIZED_FRENCH_TO_ARABIC = new Map(
+  TRANSLATIONS.map(([arabic, french]) => [
+    normalizeTranslationKey(french),
+    arabic,
+  ]),
+);
 
 const languageButton = document.querySelector(".language-button");
 const themeButton = document.querySelector(".icon-button");
@@ -306,18 +473,20 @@ document.querySelectorAll("a.download-button").forEach((link) => {
 
 function translateValue(value, dictionary) {
   if (!value) return value;
-  if (dictionary.has(value)) return dictionary.get(value);
-
-  let translated = value;
-  for (const [source, target] of dictionary) {
-    translated = translated.split(source).join(target);
-  }
-  return translated;
+  const normalized = normalizeTranslationKey(value);
+  if (!normalized) return value;
+  const leadingSpace = value.match(/^\s*/)?.[0] || "";
+  const trailingSpace = value.match(/\s*$/)?.[0] || "";
+  return dictionary.has(normalized)
+    ? leadingSpace + dictionary.get(normalized) + trailingSpace
+    : value;
 }
 
 function translatePage(language) {
   const toFrench = language === "fr";
-  const dictionary = toFrench ? ARABIC_TO_FRENCH : FRENCH_TO_ARABIC;
+  const dictionary = toFrench
+    ? NORMALIZED_ARABIC_TO_FRENCH
+    : NORMALIZED_FRENCH_TO_ARABIC;
 
   const walker = document.createTreeWalker(document.body, NodeFilter.SHOW_TEXT);
   const textNodes = [];
@@ -344,6 +513,7 @@ function translatePage(language) {
   root.lang = language;
   root.dir = toFrench ? "ltr" : "rtl";
   localStorage.setItem("school-manager-language", language);
+  document.dispatchEvent(new CustomEvent("school-manager:language-change"));
 }
 
 languageButton?.addEventListener("click", () => {
@@ -365,6 +535,465 @@ if (preferredTheme) {
 } else if (window.matchMedia("(prefers-color-scheme: dark)").matches) {
   applyTheme("dark");
 }
+
+const MODULE_PRICES = {
+  attendance: 7000,
+  qr: 6000,
+  reports: 6000,
+  analysis: 5000,
+  printer: 4000,
+};
+const CORE_PRICE = 20000;
+const PLAN_MODULES = {
+  essential: [],
+  management: ["attendance", "reports"],
+  complete: ["attendance", "qr", "reports", "analysis", "printer"],
+};
+const BUILDER_COPY = {
+  ar: {
+    essential: {
+      name: "النسخة الأساسية",
+      description: "البرنامج الأساسي بكل ما تحتاجه لبدء التسيير.",
+    },
+    management: {
+      name: "حزمة التسيير",
+      description: "الأساسيات مع الجدول والحضور والتقارير.",
+    },
+    complete: {
+      name: "النسخة الشاملة",
+      description: "كل الوحدات الحالية بأقوى تخفيض متاح.",
+    },
+    completeUpgrade: {
+      name: "النسخة الشاملة أوفر",
+      description:
+        "وصل اختيارك إلى سعر النسخة الشاملة، لذلك تحصل على جميع الوحدات بالسعر نفسه.",
+    },
+    custom: {
+      name: "نسختك الخاصة",
+      description: "سعر محسوب حسب الوحدات التي اخترتها فقط.",
+    },
+    listPrice: "السعر منفصلاً:",
+    saving: "وفّرت",
+  },
+  fr: {
+    essential: {
+      name: "Version Essentiel",
+      description: "Le logiciel de base avec tout le nécessaire pour commencer.",
+    },
+    management: {
+      name: "Pack Gestion",
+      description: "L’essentiel avec planning, présences et rapports.",
+    },
+    complete: {
+      name: "Version Complète",
+      description: "Tous les modules actuels avec la meilleure remise.",
+    },
+    completeUpgrade: {
+      name: "La version Complète est plus avantageuse",
+      description:
+        "Votre sélection atteint le prix de la version Complète : tous les modules sont donc inclus au même prix.",
+    },
+    custom: {
+      name: "Votre version sur mesure",
+      description: "Un prix calculé uniquement selon les modules choisis.",
+    },
+    listPrice: "Prix séparé :",
+    saving: "Vous économisez",
+  },
+};
+
+const FEATURE_CONTENT = {
+  core: {
+    number: "01",
+    price: 20000,
+    ar: {
+      kicker: "قاعدة عملك اليومية",
+      title: "البرنامج الأساسي",
+      description:
+        "مركز التحكم الهادئ الذي كانت مؤسستك تحتاجه: كل تلميذ وفوج وأستاذ ودفعة في مكان واحد، واضح وسريع.",
+      features: [
+        "ملفات تلاميذ كاملة مع الصور والبيانات",
+        "إدارة الأفواج والأساتذة والأسعار",
+        "دفع مستقل لكل فوج وشهر",
+        "حساب ذكي للشهر الأول والحالات الخاصة",
+        "نسخ احتياطي واسترجاع آمن للبيانات",
+        "العربية والفرنسية مع واجهة واضحة",
+      ],
+    },
+    fr: {
+      kicker: "La base de votre travail quotidien",
+      title: "Logiciel de base",
+      description:
+        "Le centre de contrôle serein qui manquait à votre établissement : chaque élève, groupe, enseignant et paiement au même endroit.",
+      features: [
+        "Fiches élèves complètes avec photos et données",
+        "Gestion des groupes, enseignants et tarifs",
+        "Paiement indépendant par groupe et par mois",
+        "Calcul intelligent du premier mois et des cas particuliers",
+        "Sauvegarde et restauration sécurisées des données",
+        "Arabe et français dans une interface claire",
+      ],
+    },
+  },
+  attendance: {
+    number: "02",
+    price: 7000,
+    ar: {
+      kicker: "كل حصة تحت السيطرة",
+      title: "الجدول والحضور",
+      description:
+        "حوّل الأسبوع المزدحم إلى جدول واضح، واعرف من حضر كل حصة دون دفاتر متفرقة أو تخمين في نهاية الشهر.",
+      features: [
+        "جدول أسبوعي واضح لكل فوج وأستاذ",
+        "إنشاء الحصص وتعديلها وإلغاؤها",
+        "تسجيل الحضور والغياب يدوياً",
+        "منع تسجيل الحضور قبل موعد الحصة",
+        "سجل حضور مرتب داخل ملف التلميذ",
+        "القاعدة اللازمة لإضافة حضور QR",
+      ],
+    },
+    fr: {
+      kicker: "Chaque séance sous contrôle",
+      title: "Planning et présences",
+      description:
+        "Transformez une semaine chargée en planning lisible et sachez qui a assisté à chaque séance, sans cahiers dispersés.",
+      features: [
+        "Planning hebdomadaire par groupe et enseignant",
+        "Création, modification et annulation des séances",
+        "Présences et absences enregistrées manuellement",
+        "Blocage des présences avant l’heure de la séance",
+        "Historique ordonné dans la fiche de l’élève",
+        "Base nécessaire pour ajouter les présences par QR",
+      ],
+    },
+  },
+  qr: {
+    number: "03",
+    price: 6000,
+    dependency: true,
+    ar: {
+      kicker: "ثوانٍ بدل الطوابير",
+      title: "مولّد وقارئ QR",
+      description:
+        "بطاقة واحدة تجعل الاستقبال أسرع وأكثر احترافاً: امسح الرمز، تحقّق من الصورة، وسجّل الحضور فوراً.",
+      dependency: "تُشترى مع وحدة الجدول والحضور.",
+      features: [
+        "إنشاء رمز خاص لكل تلميذ وإعادة طباعته",
+        "مسح سريع بكاميرا حاسوب متوافقة",
+        "إظهار صورة التلميذ للتحقق من هويته",
+        "تسجيل الحضور داخل الحصة المناسبة",
+        "إظهار حالة الدفع مع تنبيهات مرئية وصوتية",
+        "معالجة الحضور التعويضي من نفس النظام",
+      ],
+    },
+    fr: {
+      kicker: "Des secondes au lieu des files d’attente",
+      title: "Générateur et scanner QR",
+      description:
+        "Une seule carte rend l’accueil plus rapide et professionnel : scannez, vérifiez la photo et enregistrez la présence immédiatement.",
+      dependency: "S’achète avec le module Planning et présences.",
+      features: [
+        "QR unique par élève, modifiable et réimprimable",
+        "Scan rapide avec une caméra d’ordinateur compatible",
+        "Photo de l’élève affichée pour vérifier son identité",
+        "Présence enregistrée dans la séance correspondante",
+        "Statut de paiement avec alertes visuelles et sonores",
+        "Gestion des présences de rattrapage dans le même système",
+      ],
+    },
+  },
+  reports: {
+    number: "04",
+    price: 6000,
+    ar: {
+      kicker: "بياناتك جاهزة للاستعمال",
+      title: "الأدوات والتقارير",
+      description:
+        "حوّل ما سجّلته طوال الشهر إلى ملفات مرتبة وجاهزة للطباعة أو المشاركة، دون إعادة كتابة أي معلومة.",
+      features: [
+        "نافذة تصدير واحدة وبسيطة",
+        "ملفات PDF وExcel وCSV",
+        "تقارير المدفوعات والمتأخرات",
+        "تقارير الحضور عند امتلاك وحدته",
+        "كشوف الأساتذة والمبالغ المستحقة",
+        "قوائم تلاميذ وأفواج جاهزة للطباعة",
+      ],
+    },
+    fr: {
+      kicker: "Vos données prêtes à servir",
+      title: "Outils et rapports",
+      description:
+        "Transformez les données du mois en documents propres, prêts à imprimer ou partager, sans ressaisie.",
+      features: [
+        "Une seule fenêtre d’export, simple et claire",
+        "Formats PDF, Excel et CSV",
+        "Rapports de paiements et de retards",
+        "Rapports de présences lorsque le module est acquis",
+        "Relevés enseignants et montants dus",
+        "Listes d’élèves et de groupes prêtes à imprimer",
+      ],
+    },
+  },
+  analysis: {
+    number: "05",
+    price: 5000,
+    ar: {
+      kicker: "الأرقام تبدأ في الكلام",
+      title: "التحليل",
+      description:
+        "لا تكتفِ بجمع المال؛ افهم أين يتحرك. لوحات واضحة تكشف المداخيل والمصاريف والنتيجة الحقيقية بسرعة.",
+      features: [
+        "نظرة فورية على المداخيل والنتيجة الصافية",
+        "تحليل حسب الشهر والفوج والأستاذ",
+        "رسوم بيانية سهلة القراءة",
+        "متابعة الديون ونسب التحصيل",
+        "مقارنة الفترات واكتشاف الاتجاهات",
+        "أرقام تساعدك على اتخاذ قرار أسرع",
+      ],
+    },
+    fr: {
+      kicker: "Les chiffres commencent à parler",
+      title: "Analyse",
+      description:
+        "Ne vous contentez pas d’encaisser : comprenez les mouvements. Des tableaux clairs révèlent revenus, charges et résultat réel.",
+      features: [
+        "Vue immédiate des revenus et du résultat net",
+        "Analyse par mois, groupe et enseignant",
+        "Graphiques simples à lire",
+        "Suivi des dettes et du taux de collecte",
+        "Comparaison des périodes et détection des tendances",
+        "Indicateurs utiles pour décider plus vite",
+      ],
+    },
+  },
+  printer: {
+    number: "06",
+    price: 4000,
+    ar: {
+      kicker: "الدفع ينتهي بوصل احترافي",
+      title: "طابعة الوصولات",
+      description:
+        "اجعل كل عملية دفع تبدو منظمة وموثوقة: وصل واضح يُطبع تلقائياً، بالعربية، وبمعلومات الفوج الصحيح.",
+      features: [
+        "التعرّف على الطابعات الحرارية المثبتة",
+        "طباعة تلقائية عند تحويل الدفع إلى مدفوع",
+        "تنسيق عربي واضح يلتف دون ضغط النص",
+        "اختبار الطباعة والقص من الإعدادات",
+        "وصل مستقل لكل فوج ومدفوعاته",
+        "ملف PDF احتياطي عند تعذر الطباعة",
+      ],
+    },
+    fr: {
+      kicker: "Chaque paiement se termine proprement",
+      title: "Imprimante de reçus",
+      description:
+        "Donnez à chaque paiement une finition organisée et fiable : un reçu clair, imprimé automatiquement avec le bon groupe.",
+      features: [
+        "Détection des imprimantes thermiques installées",
+        "Impression automatique après validation du paiement",
+        "Mise en page arabe lisible, sans texte compressé",
+        "Test d’impression et de coupe depuis les paramètres",
+        "Reçu indépendant pour chaque groupe payé",
+        "PDF de secours si l’impression échoue",
+      ],
+    },
+  },
+};
+
+const moduleInputs = [
+  ...document.querySelectorAll('.module-option input[name="modules"]'),
+];
+const planCards = [...document.querySelectorAll("[data-plan-card]")];
+const featureTabs = [...document.querySelectorAll("[data-feature-tab]")];
+let activeFeatureId = "core";
+
+function formatDzd(amount) {
+  if (root.lang === "fr") {
+    return amount.toLocaleString("fr-FR") + " DA";
+  }
+  return amount.toLocaleString("en-US") + " دج";
+}
+
+function sameSelection(selected, expected) {
+  return (
+    selected.size === expected.length &&
+    expected.every((moduleId) => selected.has(moduleId))
+  );
+}
+
+function selectedModules() {
+  return new Set(
+    moduleInputs.filter((input) => input.checked).map((input) => input.value),
+  );
+}
+
+function setSelectedModules(moduleIds) {
+  const selected = new Set(moduleIds);
+  moduleInputs.forEach((input) => {
+    input.checked = selected.has(input.value);
+  });
+  updateModuleBuilder();
+}
+
+function updateModuleBuilder() {
+  const selected = selectedModules();
+  const language = root.lang === "fr" ? "fr" : "ar";
+  const copy = BUILDER_COPY[language];
+  const listPrice = [...selected].reduce(
+    (total, moduleId) => total + MODULE_PRICES[moduleId],
+    CORE_PRICE,
+  );
+
+  let planId = "custom";
+  let copyId = "custom";
+  let finalPrice = listPrice;
+  let displayedListPrice = listPrice;
+  const includesManagementBundle =
+    selected.has("attendance") && selected.has("reports");
+
+  if (includesManagementBundle) {
+    finalPrice -= 3000;
+  }
+
+  if (sameSelection(selected, PLAN_MODULES.essential)) {
+    planId = "essential";
+    copyId = "essential";
+  } else if (sameSelection(selected, PLAN_MODULES.management)) {
+    planId = "management";
+    copyId = "management";
+  } else if (
+    sameSelection(selected, PLAN_MODULES.complete) ||
+    finalPrice >= 40000
+  ) {
+    planId = "complete";
+    copyId = sameSelection(selected, PLAN_MODULES.complete)
+      ? "complete"
+      : "completeUpgrade";
+    finalPrice = 40000;
+    displayedListPrice = 48000;
+  }
+
+  const saving = displayedListPrice - finalPrice;
+  const planCopy = copy[copyId];
+  const nameElement = document.querySelector("[data-summary-plan]");
+  const descriptionElement = document.querySelector(
+    "[data-summary-description]",
+  );
+  const totalElement = document.querySelector("[data-builder-total]");
+  const listPriceElement = document.querySelector("[data-builder-list-price]");
+  const savingElement = document.querySelector("[data-builder-saving]");
+
+  if (nameElement) nameElement.textContent = planCopy.name;
+  if (descriptionElement) descriptionElement.textContent = planCopy.description;
+  if (totalElement) totalElement.textContent = formatDzd(finalPrice);
+  if (listPriceElement) {
+    listPriceElement.hidden = saving === 0;
+    listPriceElement.innerHTML =
+      copy.listPrice + " <s>" + formatDzd(displayedListPrice) + "</s>";
+  }
+  if (savingElement) {
+    savingElement.hidden = saving === 0;
+    savingElement.textContent = copy.saving + " " + formatDzd(saving);
+  }
+
+  planCards.forEach((card) => {
+    const isActive = card.dataset.planCard === planId;
+    card.classList.toggle("active", isActive);
+    card.querySelector("button")?.setAttribute("aria-pressed", String(isActive));
+  });
+}
+
+moduleInputs.forEach((input) => {
+  input.addEventListener("change", () => {
+    const attendance = moduleInputs.find(
+      (item) => item.value === "attendance",
+    );
+    const qr = moduleInputs.find((item) => item.value === "qr");
+
+    if (input.value === "qr" && input.checked && attendance) {
+      attendance.checked = true;
+    }
+    if (input.value === "attendance" && !input.checked && qr) {
+      qr.checked = false;
+    }
+    updateModuleBuilder();
+  });
+});
+
+document.querySelectorAll("[data-plan-select]").forEach((button) => {
+  button.addEventListener("click", () => {
+    setSelectedModules(PLAN_MODULES[button.dataset.planSelect] || []);
+  });
+});
+
+function renderFeaturePanel(featureId) {
+  const feature = FEATURE_CONTENT[featureId] || FEATURE_CONTENT.core;
+  const language = root.lang === "fr" ? "fr" : "ar";
+  const content = feature[language];
+  const panel = document.querySelector("[data-feature-panel]");
+  if (!panel) return;
+
+  activeFeatureId = featureId;
+  panel.querySelector("[data-feature-number]").textContent = feature.number;
+  panel.querySelector("[data-feature-kicker]").textContent = content.kicker;
+  panel.querySelector("[data-feature-title]").textContent = content.title;
+  panel.querySelector("[data-feature-description]").textContent =
+    content.description;
+  panel.querySelector("[data-feature-price-label]").textContent =
+    language === "fr" ? "Prix" : "السعر";
+  panel.querySelector("[data-feature-price]").textContent = formatDzd(
+    feature.price,
+  );
+
+  const dependency = panel.querySelector("[data-feature-dependency]");
+  dependency.hidden = !feature.dependency;
+  dependency.textContent = content.dependency || "";
+
+  const list = panel.querySelector("[data-feature-list]");
+  list.replaceChildren(
+    ...content.features.map((featureText) => {
+      const item = document.createElement("li");
+      item.textContent = featureText;
+      return item;
+    }),
+  );
+
+  featureTabs.forEach((tab) => {
+    const isActive = tab.dataset.featureTab === featureId;
+    tab.classList.toggle("active", isActive);
+    tab.setAttribute("aria-selected", String(isActive));
+    tab.tabIndex = isActive ? 0 : -1;
+    if (isActive) {
+      if (!tab.id) tab.id = "module-tab-" + featureId;
+      panel.setAttribute("aria-labelledby", tab.id);
+    }
+  });
+}
+
+featureTabs.forEach((tab, index) => {
+  tab.addEventListener("click", () => renderFeaturePanel(tab.dataset.featureTab));
+  tab.addEventListener("keydown", (event) => {
+    let nextIndex = null;
+    if (event.key === "ArrowRight") nextIndex = (index + 1) % featureTabs.length;
+    if (event.key === "ArrowLeft") {
+      nextIndex = (index - 1 + featureTabs.length) % featureTabs.length;
+    }
+    if (event.key === "Home") nextIndex = 0;
+    if (event.key === "End") nextIndex = featureTabs.length - 1;
+    if (nextIndex === null) return;
+    event.preventDefault();
+    featureTabs[nextIndex].focus();
+    renderFeaturePanel(featureTabs[nextIndex].dataset.featureTab);
+  });
+});
+
+document.addEventListener("school-manager:language-change", () => {
+  updateModuleBuilder();
+  renderFeaturePanel(activeFeatureId);
+});
+
+updateModuleBuilder();
+renderFeaturePanel(activeFeatureId);
 
 const scannerButtons = [...document.querySelectorAll(".scan-switcher button")];
 const scannerImage = document.querySelector(".active-scan-shot img");

@@ -70,7 +70,8 @@
               </div>
               <div class="offer-divider"></div>
               <div class="offer-item">
-                <strong>30,000 دج</strong><span>دفعة واحدة — دون اشتراك</span>
+                <strong>ابتداءً من 20,000 دج</strong
+                ><span>ادفع فقط مقابل الوحدات التي تحتاجها</span>
               </div>
             </div>
             <p class="microcopy">
@@ -118,11 +119,173 @@
           </div>
         </div>
       </section>
+      <section class="module-builder section-pad" id="module-builder">
+        <div class="container">
+          <div class="section-heading centered module-builder-heading">
+            <div class="eyebrow"><span></span>كوّن نسختك</div>
+            <h2>ادفع فقط مقابل الأدوات التي تحتاجها مؤسستك.</h2>
+            <p>
+              ابدأ بالأساسيات، ثم أضف الوحدات التي تختصر عملك فعلاً. سترى السعر
+              النهائي والتخفيض المناسب مباشرة.
+            </p>
+          </div>
+
+          <div class="builder-shell">
+            <div class="module-pick-list" aria-label="اختيار وحدات البرنامج">
+              <div class="module-option core-option">
+                <span class="module-check module-check--locked" aria-hidden="true"
+                  >✓</span
+                >
+                <span class="module-option-copy">
+                  <strong>البرنامج الأساسي</strong>
+                  <small>التلاميذ، الأفواج، الأساتذة، المدفوعات والإعدادات</small>
+                </span>
+                <span class="module-option-price">20,000 دج</span>
+                <em>مشمول دائماً</em>
+              </div>
+
+              <label class="module-option" data-module-row="attendance">
+                <input
+                  type="checkbox"
+                  name="modules"
+                  value="attendance"
+                  checked
+                />
+                <span class="module-check" aria-hidden="true">✓</span>
+                <span class="module-option-copy">
+                  <strong>الجدول والحضور</strong>
+                  <small>خطط الحصص وسجّل الحضور يدوياً بدقة</small>
+                </span>
+                <span class="module-option-price">7,000 دج</span>
+              </label>
+
+              <label
+                class="module-option module-option--dependent"
+                data-module-row="qr"
+              >
+                <input type="checkbox" name="modules" value="qr" />
+                <span class="module-check" aria-hidden="true">✓</span>
+                <span class="module-option-copy">
+                  <strong>مولّد وقارئ QR</strong>
+                  <small>يعمل مع وحدة الجدول والحضور</small>
+                </span>
+                <span class="module-option-price">6,000 دج</span>
+                <em>يتطلب الحضور</em>
+              </label>
+
+              <label class="module-option" data-module-row="reports">
+                <input
+                  type="checkbox"
+                  name="modules"
+                  value="reports"
+                  checked
+                />
+                <span class="module-check" aria-hidden="true">✓</span>
+                <span class="module-option-copy">
+                  <strong>الأدوات والتقارير</strong>
+                  <small>تقارير جاهزة وتصدير PDF وExcel وCSV</small>
+                </span>
+                <span class="module-option-price">6,000 دج</span>
+              </label>
+
+              <label class="module-option" data-module-row="analysis">
+                <input type="checkbox" name="modules" value="analysis" />
+                <span class="module-check" aria-hidden="true">✓</span>
+                <span class="module-option-copy">
+                  <strong>التحليل</strong>
+                  <small>حوّل الأرقام إلى مؤشرات مالية واضحة</small>
+                </span>
+                <span class="module-option-price">5,000 دج</span>
+              </label>
+
+              <label class="module-option" data-module-row="printer">
+                <input type="checkbox" name="modules" value="printer" />
+                <span class="module-check" aria-hidden="true">✓</span>
+                <span class="module-option-copy">
+                  <strong>طابعة الوصولات</strong>
+                  <small>طباعة حرارية تلقائية عند تسجيل الدفع</small>
+                </span>
+                <span class="module-option-price">4,000 دج</span>
+              </label>
+            </div>
+
+            <aside class="builder-summary" aria-live="polite">
+              <span class="summary-kicker">اختيارك الحالي</span>
+              <h3 data-summary-plan>حزمة التسيير</h3>
+              <p data-summary-description>
+                الأساسيات مع الجدول والحضور والتقارير.
+              </p>
+              <div class="builder-total">
+                <span>السعر النهائي</span>
+                <strong data-builder-total>30,000 دج</strong>
+              </div>
+              <p class="builder-list-price" data-builder-list-price>
+                السعر منفصلاً: <s>33,000 دج</s>
+              </p>
+              <div class="builder-saving" data-builder-saving>
+                وفّرت 3,000 دج
+              </div>
+              <a class="feature-jump" href="#module-features">
+                شاهد خصائص كل وحدة
+                <svg viewBox="0 0 24 24" aria-hidden="true">
+                  <path d="M5 12h14m-5-5 5 5-5 5"></path>
+                </svg>
+              </a>
+            </aside>
+          </div>
+
+          <div class="plans-heading">
+            <span>أو اختر حزمة جاهزة</span>
+            <i></i>
+          </div>
+          <div class="plans-grid">
+            <article class="plan-card" data-plan-card="essential">
+              <span class="plan-label">الأساسية</span>
+              <h3>ابدأ بما تحتاجه اليوم</h3>
+              <div class="plan-price"><strong>20,000 دج</strong></div>
+              <p>البرنامج الأساسي كاملاً، ويمكنك إضافة أي وحدة لاحقاً.</p>
+              <button type="button" data-plan-select="essential">
+                اختر الأساسية
+              </button>
+            </article>
+
+            <article
+              class="plan-card plan-card--recommended active"
+              data-plan-card="management"
+            >
+              <span class="recommended-ribbon">الأكثر ملاءمة</span>
+              <span class="plan-label">التسيير</span>
+              <h3>للعمل اليومي المنظّم</h3>
+              <div class="plan-price">
+                <s>33,000 دج</s><strong>30,000 دج</strong>
+              </div>
+              <p>الأساسيات + الجدول والحضور + الأدوات والتقارير.</p>
+              <span class="plan-save">توفير 3,000 دج</span>
+              <button type="button" data-plan-select="management">
+                اختر حزمة التسيير
+              </button>
+            </article>
+
+            <article class="plan-card plan-card--complete" data-plan-card="complete">
+              <span class="plan-label">الشاملة</span>
+              <h3>كل قوة البرنامج دون تنازل</h3>
+              <div class="plan-price">
+                <s>48,000 دج</s><strong>40,000 دج</strong>
+              </div>
+              <p>كل الوحدات الحالية في رخصة واحدة دائمة.</p>
+              <span class="plan-save plan-save--strong">توفير 8,000 دج</span>
+              <button type="button" data-plan-select="complete">
+                اختر النسخة الشاملة
+              </button>
+            </article>
+          </div>
+        </div>
+      </section>
       <section class="pillars section-pad" id="pillars">
         <div class="container">
           <div class="section-heading centered">
             <div class="eyebrow"><span></span>ما الذي تحصل عليه؟</div>
-            <h2>ستة وعود واضحة. لا حزم ولا مفاجآت.</h2>
+            <h2>ستة وعود واضحة، مهما كانت الوحدات التي تختارها.</h2>
             <p>
               التجربة، المرافقة، والتطوير ليست إضافات مدفوعة نخفيها بعد الشراء؛
               إنها جزء من البرنامج.
@@ -191,7 +354,116 @@
           </div>
         </div>
       </section>
-      <section class="comparison section-pad">
+      <section class="module-features section-pad" id="module-features">
+        <div class="container">
+          <div class="section-heading split-heading module-feature-heading">
+            <div>
+              <div class="eyebrow"><span></span>خصائص الوحدات</div>
+              <h2>كل وحدة صُمّمت لتحلّ مشكلة حقيقية.</h2>
+            </div>
+            <p>
+              اختر اسماً لترى بالضبط ما تضيفه الوحدة إلى عملك اليومي قبل أن
+              تقرر شراءها.
+            </p>
+          </div>
+
+          <div
+            class="module-tabs"
+            role="tablist"
+            aria-label="وحدات البرنامج"
+          >
+            <button
+              type="button"
+              role="tab"
+              aria-selected="true"
+              tabindex="0"
+              class="active"
+              data-feature-tab="core"
+            >
+              البرنامج الأساسي
+            </button>
+            <button
+              type="button"
+              role="tab"
+              aria-selected="false"
+              tabindex="-1"
+              data-feature-tab="attendance"
+            >
+              الجدول والحضور
+            </button>
+            <button
+              type="button"
+              role="tab"
+              aria-selected="false"
+              tabindex="-1"
+              data-feature-tab="qr"
+            >
+              مولّد وقارئ QR
+            </button>
+            <button
+              type="button"
+              role="tab"
+              aria-selected="false"
+              tabindex="-1"
+              data-feature-tab="reports"
+            >
+              الأدوات والتقارير
+            </button>
+            <button
+              type="button"
+              role="tab"
+              aria-selected="false"
+              tabindex="-1"
+              data-feature-tab="analysis"
+            >
+              التحليل
+            </button>
+            <button
+              type="button"
+              role="tab"
+              aria-selected="false"
+              tabindex="-1"
+              data-feature-tab="printer"
+            >
+              طابعة الوصولات
+            </button>
+          </div>
+
+          <article
+            class="module-feature-panel"
+            role="tabpanel"
+            tabindex="0"
+            data-feature-panel
+          >
+            <div class="feature-panel-intro">
+              <span class="feature-panel-number" data-feature-number>01</span>
+              <span class="feature-panel-kicker" data-feature-kicker
+                >قاعدة عملك اليومية</span
+              >
+              <h3 data-feature-title>البرنامج الأساسي</h3>
+              <p data-feature-description>
+                قلب المدرسة المنظّم: كل تلميذ وفوج وأستاذ ودفعة في مكان واحد،
+                واضح وسريع ولا يحتاج إلى جداول متناثرة.
+              </p>
+              <div class="feature-panel-price">
+                <span data-feature-price-label>السعر</span>
+                <strong data-feature-price>20,000 دج</strong>
+              </div>
+              <p class="feature-dependency" data-feature-dependency hidden></p>
+            </div>
+            <ul class="feature-panel-list" data-feature-list>
+              <li>ملفات تلاميذ كاملة مع الصور والبيانات</li>
+              <li>إدارة الأفواج والأساتذة والأسعار</li>
+              <li>دفع مستقل لكل فوج وشهر</li>
+              <li>حساب ذكي للشهر الأول والحالات الخاصة</li>
+              <li>نسخ احتياطي واسترجاع آمن للبيانات</li>
+              <li>العربية والفرنسية مع واجهة واضحة</li>
+            </ul>
+          </article>
+        </div>
+      </section>
+
+      <section class="comparison section-pad" hidden>
         <div class="container">
           <div class="section-heading split-heading">
             <div>
@@ -613,26 +885,30 @@
       <section class="pricing section-pad" id="download">
         <div class="container pricing-grid">
           <div class="pricing-copy">
-            <div class="eyebrow light"><span></span>سعر واحد واضح</div>
-            <h2>جرّبه أولاً. ادفع فقط عندما يثبت فائدته.</h2>
+            <div class="eyebrow light"><span></span>أقوى تخفيض</div>
+            <h2>كل الوحدات بـ 40,000 دج بدلاً من 48,000 دج.</h2>
             <p>
-              يبدأ التفعيل بعد أن تجرّب البرنامج في العمل الحقيقي. تبقى بيانات
-              التجربة كما هي بعد الشراء.
+              اختر النسخة الشاملة إذا أردت كل قوة البرنامج. أو ارجع إلى الحاسبة
+              لتدفع فقط مقابل الوحدات التي ستستعملها فعلاً.
             </p>
+            <a class="pricing-back-link" href="#module-builder"
+              >كوّن نسختك واحسب سعرها</a
+            >
           </div>
           <div class="price-card">
             <span class="price-label">النسخة الكاملة</span>
-            <div class="price">
-              <strong>30,000 دج</strong><span>دفعة واحدة</span>
+            <div class="price price--discount">
+              <s>48,000 دج</s><strong>40,000 دج</strong
+              ><span>دفعة واحدة</span>
             </div>
             <p class="no-subscription">
-              لا اشتراك شهري • لا اشتراك سنوي • لا رسوم تجديد
+              وفّر 8,000 دج • لا اشتراك شهري • لا رسوم تجديد
             </p>
             <ul>
               <li>
                 <svg viewBox="0 0 24 24" aria-hidden="true">
                   <path d="m5 12 4 4L19 6"></path></svg
-                >90 يوماً للتجربة بجميع الخصائص
+                >جميع الوحدات الحالية مشمولة
               </li>
               <li>
                 <svg viewBox="0 0 24 24" aria-hidden="true">
@@ -652,7 +928,7 @@
               <li>
                 <svg viewBox="0 0 24 24" aria-hidden="true">
                   <path d="m5 12 4 4L19 6"></path></svg
-                >المساعدة في ضبط طابعة الوصولات
+                >الجدول والحضور وQR والتقارير والتحليل والطباعة
               </li>
               <li>
                 <svg viewBox="0 0 24 24" aria-hidden="true">
@@ -693,8 +969,8 @@
             <details>
               <summary>ماذا تعني تحديثات مدى الحياة؟<span>+</span></summary>
               <p>
-                تحصل الرخصة المفعّلة على تحديثات البرنامج المنشورة مستقبلاً دون
-                رسوم تجديد شهرية أو سنوية.
+                تحصل الرخصة المفعّلة على تحديثات البرنامج والوحدات التي اشتريتها
+                دون رسوم تجديد شهرية أو سنوية.
               </p>
             </details>
             <details>
@@ -716,6 +992,13 @@
               <summary>هل يحتاج الحضور إلى جهاز QR خاص؟<span>+</span></summary>
               <p>
                 لا. ينشئ البرنامج البطاقات، ويمكن مسحها بكاميرا حاسوب متوافقة.
+              </p>
+            </details>
+            <details>
+              <summary>هل يمكن شراء وحدة QR وحدها؟<span>+</span></summary>
+              <p>
+                تحتاج وحدة QR إلى وحدة الجدول والحضور لأنها تسجّل حضور التلميذ
+                داخل حصصه. عند اختيار QR تُضاف وحدة الحضور تلقائياً إلى الحاسبة.
               </p>
             </details>
           </div>
