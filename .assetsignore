@@ -1,0 +1,14 @@
+# Keep repository, build, and server-only files out of public static assets.
+.git/
+.github/
+.wrangler/
+node_modules/
+.gitignore
+.assetsignore
+worker.js
+wrangler.jsonc
+package.json
+package-lock.json
+*.zip
+*.pem
+School-Manager-Setup.exe
