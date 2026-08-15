@@ -9,6 +9,57 @@ const SCAN_IMAGES = [
 
 const TRANSLATIONS = [
   [
+    "هذه أمثلة من بطاقات QR التي صمّمناها. يمكن تخصيص الألوان والشعار والبيانات لتناسب هوية مدرستك أو مركزك.",
+    "Voici quelques cartes QR que nous avons conçues. Les couleurs, le logo et les informations peuvent être adaptés à l’identité de votre école ou centre.",
+  ],
+  ["نماذج أنجزناها", "Quelques réalisations"],
+  [
+    "بطاقة QR يمكن أن تبدو جميلة أيضاً.",
+    "Une carte QR peut aussi être élégante.",
+  ],
+  [
+    "اضغط على أي بطاقة لتكبيرها",
+    "Touchez une carte pour l’agrandir",
+  ],
+  [
+    "اسحب لرؤية المزيد من التصاميم",
+    "Faites glisser pour voir les autres modèles",
+  ],
+  ["أمثلة تصاميم بطاقات QR", "Exemples de cartes QR"],
+  ["تكبير نموذج بطاقة أستاذ", "Agrandir le modèle de carte enseignant"],
+  [
+    "تكبير نموذج بطاقة بتصميم مؤسسي",
+    "Agrandir le modèle de carte institutionnelle",
+  ],
+  [
+    "تكبير نموذج بطاقة بطابع كلاسيكي",
+    "Agrandir le modèle de carte classique",
+  ],
+  [
+    "تكبير نموذج بطاقة بطابع عصري",
+    "Agrandir le modèle de carte moderne",
+  ],
+  [
+    "نموذج بطاقة QR تعليمية بالبنفسجي والأزرق",
+    "Carte QR éducative violette et bleue",
+  ],
+  [
+    "نموذج بطاقة QR مدرسية بالأخضر والأزرق",
+    "Carte QR scolaire verte et bleue",
+  ],
+  [
+    "نموذج بطاقة QR مدرسية بالأزرق الداكن والذهبي",
+    "Carte QR scolaire bleu marine et or",
+  ],
+  [
+    "نموذج بطاقة QR مدرسية عصرية متعددة الألوان",
+    "Carte QR scolaire moderne multicolore",
+  ],
+  ["بطاقة أستاذ", "Carte enseignant"],
+  ["تصميم مؤسسي", "Design institutionnel"],
+  ["طابع كلاسيكي", "Style classique"],
+  ["طابع عصري", "Style moderne"],
+  [
     "تحتاج وحدة QR إلى وحدة الجدول والحضور لأنها تسجّل حضور التلميذ داخل حصصه. عند اختيار QR تُضاف وحدة الحضور تلقائياً إلى الحاسبة.",
     "Le module QR nécessite Planning et présences, car il enregistre l’élève dans ses séances. En choisissant QR, le module Présences est ajouté automatiquement au calcul.",
   ],

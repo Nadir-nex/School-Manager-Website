@@ -1124,6 +1124,205 @@ svg {
 .pillar-card.pink {
   color: var(--pink);
 }
+.qr-card-showcase {
+  isolation: isolate;
+  color: #fff;
+  background:
+    radial-gradient(circle at 14% 16%, #12b8a626, transparent 30%),
+    radial-gradient(circle at 87% 82%, #7d63e72c, transparent 32%),
+    linear-gradient(145deg, #071426, #0c213c 56%, #0c1930);
+  overflow: hidden;
+}
+.qr-card-showcase-inner {
+  z-index: 1;
+  position: relative;
+}
+.qr-card-orb {
+  pointer-events: none;
+  opacity: 0.42;
+  filter: blur(1px);
+  border: 1px solid #ffffff18;
+  border-radius: 50%;
+  position: absolute;
+}
+.qr-card-orb--one {
+  width: 350px;
+  height: 350px;
+  inset-block-start: -230px;
+  inset-inline-start: -110px;
+  box-shadow:
+    0 0 0 48px #ffffff05,
+    0 0 0 96px #ffffff03;
+}
+.qr-card-orb--two {
+  width: 240px;
+  height: 240px;
+  inset-inline-end: -105px;
+  inset-block-end: -130px;
+  box-shadow: 0 0 0 52px #246bfe0a;
+}
+.qr-card-showcase-heading {
+  margin-bottom: 42px;
+}
+.qr-card-showcase-heading .eyebrow {
+  color: #72dfbf;
+}
+.qr-card-showcase-heading h2 {
+  color: #fff;
+}
+.qr-card-showcase-copy {
+  align-self: end;
+}
+.qr-card-showcase-copy > p {
+  color: #adbed3;
+  margin: 0;
+  font-size: 0.96rem;
+  line-height: 1.9;
+}
+.qr-card-view-hint {
+  color: #d9e6f4;
+  align-items: center;
+  gap: 9px;
+  margin-top: 17px;
+  font-size: 0.72rem;
+  font-weight: 900;
+  display: inline-flex;
+}
+.qr-card-view-hint svg {
+  color: #72dfbf;
+  width: 18px;
+  height: 18px;
+}
+.qr-card-gallery {
+  direction: rtl;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 18px;
+  display: grid;
+}
+[dir="ltr"] .qr-card-gallery {
+  direction: ltr;
+}
+.qr-card-example {
+  min-width: 0;
+  margin: 0;
+}
+.qr-card-open {
+  background: #ffffff0d;
+  border: 1px solid #ffffff1e;
+  border-radius: 22px;
+  padding: 7px;
+  position: relative;
+  transition:
+    transform 0.28s ease,
+    border-color 0.28s ease,
+    box-shadow 0.28s ease;
+  box-shadow: 0 24px 55px #02091652;
+}
+.qr-card-open::after {
+  content: "";
+  pointer-events: none;
+  background: linear-gradient(180deg, transparent 58%, #06112661);
+  border-radius: 15px;
+  position: absolute;
+  inset: 7px;
+}
+.qr-card-open:hover {
+  border-color: #72dfbf66;
+  transform: translateY(-7px);
+  box-shadow: 0 34px 70px #02091678;
+}
+.qr-card-open:focus-visible {
+  outline: 3px solid #72dfbf;
+  outline-offset: 4px;
+}
+.qr-card-open img {
+  aspect-ratio: 2 / 3;
+  object-fit: cover;
+  border-radius: 15px;
+  width: 100%;
+  display: block;
+}
+.qr-card-zoom {
+  z-index: 1;
+  color: #fff;
+  background: #071426c7;
+  border: 1px solid #ffffff35;
+  border-radius: 50%;
+  place-items: center;
+  width: 42px;
+  height: 42px;
+  display: grid;
+  position: absolute;
+  inset-inline-end: 18px;
+  inset-block-end: 18px;
+  box-shadow: 0 10px 24px #0006;
+}
+.qr-card-zoom svg {
+  width: 19px;
+  height: 19px;
+}
+.qr-card-example figcaption {
+  align-items: center;
+  gap: 11px;
+  padding: 15px 9px 0;
+  display: flex;
+}
+.qr-card-example figcaption span {
+  color: #72dfbf;
+  font-size: 0.67rem;
+  font-weight: 900;
+}
+.qr-card-example figcaption strong {
+  color: #e8f0fa;
+  font-size: 0.78rem;
+}
+.qr-card-swipe-hint {
+  color: #8fa5bf;
+  text-align: center;
+  margin: 24px 0 0;
+  font-size: 0.7rem;
+  font-weight: 800;
+  display: none;
+}
+@media (width<=1050px) {
+  .qr-card-gallery {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 28px 20px;
+  }
+}
+@media (width<=800px) {
+  .qr-card-showcase-heading {
+    gap: 22px;
+    margin-bottom: 34px;
+  }
+}
+@media (width<=580px) {
+  .qr-card-showcase .container {
+    width: min(100% - 24px, 680px);
+  }
+  .qr-card-gallery {
+    scrollbar-width: thin;
+    scroll-snap-type: x mandatory;
+    scroll-padding-inline: 2px;
+    grid-template-columns: none;
+    grid-auto-flow: column;
+    grid-auto-columns: minmax(250px, 84%);
+    gap: 14px;
+    margin-inline: -2px;
+    padding: 6px 2px 16px;
+    overflow-x: auto;
+    overscroll-behavior-inline: contain;
+  }
+  .qr-card-example {
+    scroll-snap-align: start;
+  }
+  .qr-card-open:hover {
+    transform: none;
+  }
+  .qr-card-swipe-hint {
+    display: block;
+  }
+}
 .comparison {
   background: var(--bg);
 }
