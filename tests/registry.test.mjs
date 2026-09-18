@@ -434,12 +434,11 @@ describe("existing systems untouched", () => {
     const res = await worker.fetch(new Request(ORIGIN + "/update.json"), e);
     assert.equal(res.status, 200);
     const json = await res.json();
-    assert.equal(json.version, "2.1.3");
-    assert.ok(json.downloadUrl.endsWith("/School-Manager-Setup.exe"));
-    assert.ok("sha256" in json && "notes" in json);
-    // File on disk unchanged by this feature.
+    // File on disk unchanged by this feature; served manifest must match it exactly.
     const raw = readFileSync(join(ROOT, "update.json"), "utf8");
     assert.deepEqual(JSON.parse(raw), json);
+    assert.ok(json.downloadUrl.endsWith("/School-Manager-Setup.exe"));
+    assert.ok("sha256" in json && "notes" in json);
   });
 
   it("installer route still wired to R2 (404 when bucket empty)", async () => {
