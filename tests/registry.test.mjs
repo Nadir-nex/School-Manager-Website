@@ -373,6 +373,15 @@ describe("admin API", () => {
     assert.equal(row.device_count, 1);
     assert.equal(row.app_version, "2.1.3");
     assert.ok(row.last_seen_at > 0);
+    // TEST ONLY: provisional per-device/license/first-seen columns.
+    assert.deepEqual(row.license_states, ["trial"]);
+    assert.ok(row.created_at > 0);
+    assert.equal(row.devices.length, 1);
+    assert.equal(row.devices[0].id, a.json.deviceId);
+    assert.equal(row.devices[0].license_state, "trial");
+    assert.equal(row.devices[0].app_version, "2.1.3");
+    assert.ok(row.devices[0].first_seen_at > 0);
+    assert.ok(row.devices[0].last_seen_at > 0);
 
     const upd = await worker.fetch(
       new Request(ORIGIN + `/api/v1/admin/customers/${a.json.customerId}`, {

@@ -108,6 +108,12 @@
           ' <span class="muted">' + esc(c.id) + " · " + (c.device_count || 0) + " device(s) · v" + esc(c.app_version || "?") + " · last seen " + esc(fmtDate(c.last_seen_at)) + "</span></div>" +
           '<div class="muted">Phone: ' + esc(c.phone || "—") + " · Email: " + esc(c.email || "—") + " · Address: " + esc(c.address || "—") + "</div>" +
           (c.notes ? "<div>Notes: " + esc(c.notes) + "</div>" : "") +
+          '<div class="muted">TEST — first seen: ' + esc(fmtDate(c.created_at)) +
+          " · license states: " + esc((c.license_states || []).join(", ") || "—") + "</div>" +
+          '<div class="muted">TEST — devices: ' + ((c.devices || []).map((d) =>
+            esc(d.id) + " (" + esc(d.license_state) + ", v" + esc(d.app_version || "?") +
+            ", first " + esc(fmtDate(d.first_seen_at)) + ", last " + esc(fmtDate(d.last_seen_at)) + ")",
+          ).join(" · ") || "—") + "</div>" +
           '<div class="bar" style="margin:10px 0 0"><button data-edit="' + esc(c.id) + '" class="ghost">Edit contact info</button></div>' +
           '<div class="edit-grid" data-form="' + esc(c.id) + '" hidden>' +
           '<label>School name<input data-f="school_name" value="' + esc(c.school_name || "") + '"></label>' +

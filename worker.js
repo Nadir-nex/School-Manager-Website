@@ -309,6 +309,25 @@ async function handleAdminList(request, env) {
     .all()
     .then((r) => r.results || []);
   const latestByCustomer = new Map(latest.map((d) => [d.customer_id, d]));
+  // TEST ONLY: per-device detail for the provisional admin columns.
+  const deviceRows = await db
+    .prepare(
+      `SELECT id, customer_id, app_version, license_state, first_seen_at, last_seen_at
+         FROM devices ORDER BY last_seen_at DESC`,
+    )
+    .all()
+    .then((r) => r.results || []);
+  const devicesByCustomer = new Map();
+  for (const d of deviceRows) {
+    if (!devicesByCustomer.has(d.customer_id)) devicesByCustomer.set(d.customer_id, []);
+    devicesByCustomer.get(d.customer_id).push({
+      id: d.id,
+      app_version: d.app_version,
+      license_state: d.license_state,
+      first_seen_at: d.first_seen_at,
+      last_seen_at: d.last_seen_at,
+    });
+  }
   return jsonResponse({
     ok: true,
     customers: rows.map((c) => ({
@@ -325,6 +344,7 @@ async function handleAdminList(request, env) {
       license_states: c.license_states ? c.license_states.split(",") : [],
       created_at: c.created_at,
       updated_at: c.updated_at,
+      devices: devicesByCustomer.get(c.id) || [],
     })),
   });
 }
