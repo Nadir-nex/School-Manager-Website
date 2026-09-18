@@ -17,10 +17,12 @@ const ROOT = join(dirname(fileURLToPath(import.meta.url)), "..");
 const ORIGIN = "https://school.example";
 
 // --- Minimal D1 shim over node:sqlite ---------------------------------------
-function makeDb() {
+function makeDb({ migrate = true } = {}) {
   const sqlite = new DatabaseSync(":memory:");
-  const migration = readFileSync(join(ROOT, "migrations", "0001_registry.sql"), "utf8");
-  sqlite.exec(migration);
+  if (migrate) {
+    const migration = readFileSync(join(ROOT, "migrations", "0001_registry.sql"), "utf8");
+    sqlite.exec(migration);
+  }
   const wrap = (sql, params) => ({
     _sql: sql,
     _params: params,
@@ -457,5 +459,37 @@ describe("existing systems untouched", () => {
     for (const want of ["idx_customers_school_name", "idx_devices_customer", "idx_devices_h1", "idx_devices_h2", "idx_devices_h3"]) {
       assert.ok(indexes.includes(want), `missing ${want}`);
     }
+  });
+});
+
+describe("unmigrated database (D1 created, migrations never applied)", () => {
+  const unmigratedEnv = (extra = {}) => env({ ...extra, REGISTRY_DB: makeDb({ migrate: false }) });
+
+  it("heartbeat reports registry_not_migrated instead of internal", async () => {
+    const e = unmigratedEnv();
+    const { status, json } = await post(e, base());
+    assert.equal(status, 500);
+    assert.deepEqual(json, { ok: false, code: "registry_not_migrated" });
+  });
+
+  it("admin list reports registry_not_migrated instead of internal", async () => {
+    const e = unmigratedEnv();
+    const res = await worker.fetch(new Request(ORIGIN + "/api/v1/admin/customers"), e);
+    assert.equal(res.status, 500);
+    assert.deepEqual(await res.json(), { ok: false, code: "registry_not_migrated" });
+  });
+
+  it("admin update reports registry_not_migrated instead of internal", async () => {
+    const e = unmigratedEnv();
+    const res = await worker.fetch(
+      new Request(ORIGIN + "/api/v1/admin/customers/cus_abc", {
+        method: "PATCH",
+        headers: { "content-type": "application/json" },
+        body: JSON.stringify({ phone: "1" }),
+      }),
+      e,
+    );
+    assert.equal(res.status, 500);
+    assert.deepEqual(await res.json(), { ok: false, code: "registry_not_migrated" });
   });
 });

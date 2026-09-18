@@ -21,7 +21,6 @@
     {
       "binding": "REGISTRY_DB",
       "database_name": "school-manager-registry",
-      // TODO: replace with the real D1 id after `wrangler d1 create school-manager-registry`.
       "database_id": "23cc94dd-13bb-41de-88d1-ffaaf05986e6"
     }
   ]

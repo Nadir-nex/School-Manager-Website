@@ -56,6 +56,20 @@ function requireDb(env) {
   return null;
 }
 
+// D1 can exist while `migrations/` were never applied to it; then every query
+// throws "no such table". Surface that as its own code so it is distinguishable
+// from any other backend failure.
+// Fix: wrangler d1 migrations apply school-manager-registry --remote
+function dbErrorResponse(e, label) {
+  const message = String(e && e.message ? e.message : e);
+  if (message.includes("no such table")) {
+    console.error(label + ": migrations not applied", e);
+    return jsonResponse({ ok: false, code: "registry_not_migrated" }, 500);
+  }
+  console.error(label, e);
+  return jsonResponse({ ok: false, code: "internal" }, 500);
+}
+
 // --- Heartbeat store path (D1) -------------------------------------------
 // The ONLY writer the desktop can reach. It may touch customers.school_name,
 // customers.status, and device rows. It can NEVER write phone/email/address/notes.
@@ -251,8 +265,7 @@ async function handleHeartbeat(request, env) {
     if (message.includes("UNIQUE constraint failed: devices.device_key")) {
       return jsonResponse({ ok: false, code: "retry" }, 409);
     }
-    console.error("heartbeat failed", e);
-    return jsonResponse({ ok: false, code: "internal" }, 500);
+    return dbErrorResponse(e, "heartbeat failed");
   }
 }
 
@@ -400,8 +413,7 @@ export default {
       try {
         return await handleAdminList(request, env);
       } catch (e) {
-        console.error("admin list failed", e);
-        return jsonResponse({ ok: false, code: "internal" }, 500);
+        return dbErrorResponse(e, "admin list failed");
       }
     }
 
@@ -429,8 +441,7 @@ export default {
       try {
         return await handleAdminUpdate(request, env, customerId);
       } catch (e) {
-        console.error("admin update failed", e);
-        return jsonResponse({ ok: false, code: "internal" }, 500);
+        return dbErrorResponse(e, "admin update failed");
       }
     }
 
