@@ -7,6 +7,7 @@ import {
   HEARTBEAT_RATE_LIMIT,
   checkRateLimit,
   deviceKeyFor,
+  heartbeatResponseStatus,
   jsonResponse,
   newId,
   pickBestTwoOfThreeMatch,
@@ -185,7 +186,7 @@ async function handleHeartbeat(request, env) {
         ok: true,
         customerId: customer.id,
         deviceId: device.id,
-        status: parsed.status,
+        status: heartbeatResponseStatus(customer.lockdown, parsed.status),
       });
     }
 
@@ -267,7 +268,7 @@ async function handleHeartbeat(request, env) {
       ok: true,
       customerId: customer.id,
       deviceId: deviceRow.id,
-      status: parsed.status,
+      status: heartbeatResponseStatus(customer.lockdown, parsed.status),
     });
   } catch (e) {
     const message = String(e && e.message ? e.message : e);
@@ -344,6 +345,7 @@ async function handleAdminList(request, env) {
       license_states: c.license_states ? c.license_states.split(",") : [],
       created_at: c.created_at,
       updated_at: c.updated_at,
+      lockdown: Number(c.lockdown) === 1,
       devices: devicesByCustomer.get(c.id) || [],
     })),
   });
@@ -371,7 +373,7 @@ async function handleAdminUpdate(request, env, customerId) {
   await db
     .prepare(
       `UPDATE customers SET school_name = ?, phone = ?, email = ?,
-        address = ?, notes = ?, updated_at = ? WHERE id = ?`,
+        address = ?, notes = ?, lockdown = ?, updated_at = ? WHERE id = ?`,
     )
     .bind(
       next.school_name,
@@ -379,6 +381,7 @@ async function handleAdminUpdate(request, env, customerId) {
       next.email,
       next.address,
       next.notes,
+      Number(next.lockdown) === 1 ? 1 : 0,
       now,
       customerId,
     )

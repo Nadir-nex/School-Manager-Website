@@ -5,7 +5,7 @@
 
 import { describe, it, beforeEach } from "node:test";
 import assert from "node:assert/strict";
-import { readFileSync, existsSync } from "node:fs";
+import { readFileSync, existsSync, readdirSync } from "node:fs";
 import { join, dirname } from "node:path";
 import { fileURLToPath } from "node:url";
 import { DatabaseSync } from "node:sqlite";
@@ -17,11 +17,12 @@ const ROOT = join(dirname(fileURLToPath(import.meta.url)), "..");
 const ORIGIN = "https://school.example";
 
 // --- Minimal D1 shim over node:sqlite ---------------------------------------
-function makeDb({ migrate = true } = {}) {
+function makeDb({ migrate = true, migrationFiles = null } = {}) {
   const sqlite = new DatabaseSync(":memory:");
   if (migrate) {
-    const migration = readFileSync(join(ROOT, "migrations", "0001_registry.sql"), "utf8");
-    sqlite.exec(migration);
+    const dir = join(ROOT, "migrations");
+    const files = (migrationFiles || readdirSync(dir).filter((f) => f.endsWith(".sql"))).sort();
+    for (const f of files) sqlite.exec(readFileSync(join(dir, f), "utf8"));
   }
   // Mirror production D1 strictly: placeholder count must equal binding count
   // (node:sqlite itself is lenient; real D1 throws D1_ERROR otherwise).
@@ -508,5 +509,137 @@ describe("unmigrated database (D1 created, migrations never applied)", () => {
     );
     assert.equal(res.status, 500);
     assert.deepEqual(await res.json(), { ok: false, code: "registry_not_migrated" });
+  });
+});
+
+describe("lockdown (administrative customer state)", () => {
+  const H2 = H("hash_GGGG7777hhhh8888", "hash_IIII9999jjjj0000", "hash_KKKK1111llll2222");
+  const setLockdown = (e, customerId, lockdown) =>
+    worker.fetch(
+      new Request(ORIGIN + `/api/v1/admin/customers/${customerId}`, {
+        method: "PATCH",
+        headers: { "content-type": "application/json" },
+        body: JSON.stringify({ lockdown }),
+      }),
+      e,
+    );
+  const dbCustomer = (e, id) =>
+    e.REGISTRY_DB._sqlite.prepare("SELECT * FROM customers WHERE id = ?").get(id);
+  const dbDevice = (e, id) =>
+    e.REGISTRY_DB._sqlite.prepare("SELECT * FROM devices WHERE id = ?").get(id);
+
+  it("Test 1 — unlocked customer heartbeat returns normal status", async () => {
+    const e = env();
+    const { status, json } = await post(e, base({ status: "activated" }));
+    assert.equal(status, 200);
+    assert.equal(json.status, "activated");
+    assert.equal(dbCustomer(e, json.customerId).lockdown, 0);
+  });
+
+  it("Test 2 — admin lock sets lockdown=1 in D1", async () => {
+    const e = env();
+    const a = await post(e, base());
+    const res = await setLockdown(e, a.json.customerId, true);
+    assert.equal(res.status, 200);
+    assert.equal((await res.json()).customer.lockdown, 1);
+    assert.equal(dbCustomer(e, a.json.customerId).lockdown, 1);
+  });
+
+  it("Test 3 — locked trial customer heartbeat returns locked", async () => {
+    const e = env();
+    const ip = freshIp();
+    const a = await post(e, base({ status: "trial" }), ip);
+    await setLockdown(e, a.json.customerId, true);
+    const b = await post(e, base({ status: "trial" }), ip);
+    assert.equal(b.json.status, "locked");
+    assert.equal(b.json.customerId, a.json.customerId);
+    assert.equal(b.json.deviceId, a.json.deviceId);
+    // Stored license state untouched by lockdown.
+    assert.equal(dbDevice(e, a.json.deviceId).license_state, "trial");
+    assert.equal(dbCustomer(e, a.json.customerId).status, "trial");
+  });
+
+  it("Test 4 — locked activated customer heartbeat still returns locked", async () => {
+    const e = env();
+    const ip = freshIp();
+    const a = await post(e, base({ status: "activated" }), ip);
+    await setLockdown(e, a.json.customerId, true);
+    const b = await post(e, base({ status: "activated" }), ip);
+    assert.equal(b.json.status, "locked");
+    assert.equal(dbDevice(e, a.json.deviceId).license_state, "activated");
+  });
+
+  it("Test 5 — unlock restores license-derived status, license unchanged", async () => {
+    const e = env();
+    const ip = freshIp();
+    const a = await post(e, base({ status: "trial" }), ip);
+    await setLockdown(e, a.json.customerId, true);
+    assert.equal((await post(e, base({ status: "trial" }), ip)).json.status, "locked");
+    await setLockdown(e, a.json.customerId, false);
+    const b = await post(e, base({ status: "trial" }), ip);
+    assert.equal(b.json.status, "trial");
+    assert.equal(dbDevice(e, a.json.deviceId).license_state, "trial");
+    assert.equal(dbCustomer(e, a.json.customerId).lockdown, 0);
+  });
+
+  it("Test 6 — locked customer: both devices receive locked, license rows unchanged", async () => {
+    const e = env();
+    const ip = freshIp();
+    const a = await post(e, base({ status: "trial" }), ip);
+    const b = await post(e, base({ status: "activated", machineHashBundle: [...H2] }), ip);
+    assert.equal(b.json.customerId, a.json.customerId, "same customer via same school name");
+    await setLockdown(e, a.json.customerId, true);
+    const r1 = await post(e, base({ status: "trial" }), ip);
+    const r2 = await post(e, base({ status: "activated", machineHashBundle: [...H2] }), ip);
+    assert.equal(r1.json.status, "locked");
+    assert.equal(r2.json.status, "locked");
+    assert.equal(r1.json.deviceId, a.json.deviceId);
+    assert.equal(r2.json.deviceId, b.json.deviceId);
+    assert.equal(dbDevice(e, a.json.deviceId).license_state, "trial");
+    assert.equal(dbDevice(e, b.json.deviceId).license_state, "activated");
+  });
+
+  it("Test 7 — admin API locks/unlocks and rejects non-boolean values", async () => {
+    const e = env();
+    const a = await post(e, base());
+    for (const good of [true, 1]) {
+      const res = await setLockdown(e, a.json.customerId, good);
+      assert.equal(res.status, 200);
+      assert.equal(dbCustomer(e, a.json.customerId).lockdown, 1);
+    }
+    for (const good of [false, 0]) {
+      const res = await setLockdown(e, a.json.customerId, good);
+      assert.equal(res.status, 200);
+      assert.equal(dbCustomer(e, a.json.customerId).lockdown, 0);
+    }
+    for (const bad of ["true", "yes", 2, -1, null, {}, []]) {
+      const res = await setLockdown(e, a.json.customerId, bad);
+      assert.equal(res.status, 422, `lockdown=${JSON.stringify(bad)} must be rejected`);
+    }
+    // Admin list exposes the lockdown flag.
+    const list = await worker.fetch(new Request(ORIGIN + "/api/v1/admin/customers"), e);
+    assert.equal((await list.json()).customers[0].lockdown, false);
+    await setLockdown(e, a.json.customerId, true);
+    const list2 = await worker.fetch(new Request(ORIGIN + "/api/v1/admin/customers"), e);
+    assert.equal((await list2.json()).customers[0].lockdown, true);
+  });
+
+  it("works against a 0001-only database (lockdown column absent)", async () => {
+    const e = env({ REGISTRY_DB: makeDb({ migrationFiles: ["0001_registry.sql"] }) });
+    const { status, json } = await post(e, base({ status: "trial" }));
+    assert.equal(status, 200);
+    assert.equal(json.status, "trial");
+  });
+
+  it("migration default — pre-existing customers stay unlocked", async () => {
+    const sqlite = new DatabaseSync(":memory:");
+    sqlite.exec(readFileSync(join(ROOT, "migrations", "0001_registry.sql"), "utf8"));
+    sqlite
+      .prepare("INSERT INTO customers (id, school_name, status, created_at, updated_at) VALUES ('cus_old', 'Old School', 'activated', 1, 1)")
+      .run();
+    sqlite.exec(readFileSync(join(ROOT, "migrations", "0002_customer_lockdown.sql"), "utf8"));
+    const row = sqlite.prepare("SELECT lockdown, status FROM customers WHERE id = 'cus_old'").get();
+    assert.equal(row.lockdown, 0);
+    assert.equal(row.status, "activated", "license status untouched by migration");
   });
 });

@@ -48,8 +48,11 @@
       .pill.trial { background: #4b83ff22; color: var(--blue); }
       .pill.suspended_trial { background: #f39b4a22; color: var(--orange); }
       .pill.suspended { background: #ff4d5522; color: var(--red); }
+      .pill.locked { background: #ff4d55; color: #fff; }
       .muted { color: var(--muted); }
       .card { background: var(--surface); border: 1px solid var(--line); border-radius: 12px; padding: 16px; margin-bottom: 14px; }
+      .card.is-locked { border-color: var(--red); }
+      button.danger { background: var(--red); }
       .edit-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 10px; }
       .edit-grid label { display: grid; gap: 4px; font-size: 0.75rem; color: var(--muted); }
       .edit-grid .full { grid-column: 1 / -1; }
@@ -103,8 +106,9 @@
         );
         $("#count").textContent = rows.length + " customer(s). Status is the latest reported device state; suspended is reserved for the future lock system.";
         $("#list").innerHTML = rows.map((c) =>
-          '<div class="card" data-id="' + esc(c.id) + '">' +
+          '<div class="card' + (c.lockdown ? " is-locked" : "") + '" data-id="' + esc(c.id) + '">' +
           "<div><strong>" + esc(c.school_name || "(unnamed)") + "</strong> " + pill(c.status) +
+          (c.lockdown ? ' <span class="pill locked">LOCKED</span>' : "") +
           ' <span class="muted">' + esc(c.id) + " · " + (c.device_count || 0) + " device(s) · v" + esc(c.app_version || "?") + " · last seen " + esc(fmtDate(c.last_seen_at)) + "</span></div>" +
           '<div class="muted">Phone: ' + esc(c.phone || "—") + " · Email: " + esc(c.email || "—") + " · Address: " + esc(c.address || "—") + "</div>" +
           (c.notes ? "<div>Notes: " + esc(c.notes) + "</div>" : "") +
@@ -114,7 +118,11 @@
             esc(d.id) + " (" + esc(d.license_state) + ", v" + esc(d.app_version || "?") +
             ", first " + esc(fmtDate(d.first_seen_at)) + ", last " + esc(fmtDate(d.last_seen_at)) + ")",
           ).join(" · ") || "—") + "</div>" +
-          '<div class="bar" style="margin:10px 0 0"><button data-edit="' + esc(c.id) + '" class="ghost">Edit contact info</button></div>' +
+          '<div class="bar" style="margin:10px 0 0"><button data-edit="' + esc(c.id) + '" class="ghost">Edit contact info</button>' +
+          (c.lockdown
+            ? '<button data-unlock="' + esc(c.id) + '" class="ghost">UNLOCK</button>'
+            : '<button data-lock="' + esc(c.id) + '" class="danger">LOCKDOWN</button>') +
+          '<span class="muted" data-lockmsg></span></div>' +
           '<div class="edit-grid" data-form="' + esc(c.id) + '" hidden>' +
           '<label>School name<input data-f="school_name" value="' + esc(c.school_name || "") + '"></label>' +
           '<label>Phone<input data-f="phone" value="' + esc(c.phone || "") + '"></label>' +
@@ -142,6 +150,26 @@
         if (edit) {
           const form = document.querySelector('[data-form="' + edit.dataset.edit + '"]');
           if (form) form.hidden = !form.hidden;
+          return;
+        }
+        const lockBtn = e.target.closest("[data-lock],[data-unlock]");
+        if (lockBtn) {
+          const id = lockBtn.dataset.lock || lockBtn.dataset.unlock;
+          const card = lockBtn.closest(".card");
+          const msg = card ? card.querySelector("[data-lockmsg]") : null;
+          const lockdown = lockBtn.hasAttribute("data-lock");
+          if (msg) msg.textContent = lockdown ? "Locking…" : "Unlocking…";
+          try {
+            const data = await api("/api/v1/admin/customers/" + encodeURIComponent(id), {
+              method: "PATCH",
+              headers: { "content-type": "application/json" },
+              body: JSON.stringify({ lockdown }),
+            });
+            customers = customers.map((c) => (c.id === id ? { ...c, ...data.customer } : c));
+            render();
+          } catch (err) {
+            if (msg) msg.textContent = err.message;
+          }
           return;
         }
         const save = e.target.closest("[data-save]");

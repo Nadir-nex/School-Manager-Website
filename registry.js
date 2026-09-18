@@ -161,6 +161,14 @@ export function validateAdminPatch(body) {
   const allowed = Object.keys(ADMIN_EDIT_LIMITS);
   const patch = {};
   let hasField = false;
+  // lockdown is a strict boolean/integer field, separate from the string contact fields.
+  if ("lockdown" in body) {
+    hasField = true;
+    const value = body.lockdown;
+    if (value === true || value === 1) patch.lockdown = 1;
+    else if (value === false || value === 0) patch.lockdown = 0;
+    else return { error: "bad_customer_field" };
+  }
   for (const field of allowed) {
     if (!(field in body)) continue;
     hasField = true;
@@ -185,4 +193,10 @@ export function validateAdminPatch(body) {
     return { error: "bad_customer_field" };
   }
   return { patch };
+}
+
+// Administrative customer lockdown overrides the heartbeat response status,
+// but never the stored license state. Missing/0 => normal license-derived status.
+export function heartbeatResponseStatus(customerLockdown, licenseStatus) {
+  return Number(customerLockdown) === 1 ? "locked" : licenseStatus;
 }
