@@ -89,7 +89,17 @@ async function findHashCandidates(db, hashes) {
            OR machine_h2 IN (?, ?, ?)
            OR machine_h3 IN (?, ?, ?)`,
     )
-    .bind(hashes[0], hashes[1], hashes[2])
+    .bind(
+      hashes[0],
+      hashes[1],
+      hashes[2],
+      hashes[0],
+      hashes[1],
+      hashes[2],
+      hashes[0],
+      hashes[1],
+      hashes[2],
+    )
     .all()
     .then((r) => r.results || []);
 }

@@ -23,9 +23,16 @@ function makeDb({ migrate = true } = {}) {
     const migration = readFileSync(join(ROOT, "migrations", "0001_registry.sql"), "utf8");
     sqlite.exec(migration);
   }
-  const wrap = (sql, params) => ({
-    _sql: sql,
-    _params: params,
+  // Mirror production D1 strictly: placeholder count must equal binding count
+  // (node:sqlite itself is lenient; real D1 throws D1_ERROR otherwise).
+  const wrap = (sql, params) => {
+    const placeholders = (sql.match(/\?/g) || []).length;
+    if (placeholders !== params.length) {
+      throw new Error("D1_ERROR: Wrong number of parameter bindings for SQL query.");
+    }
+    return {
+      _sql: sql,
+      _params: params,
     async first() {
       const row = sqlite.prepare(sql).get(...params);
       return row === undefined ? null : row;
@@ -37,7 +44,8 @@ function makeDb({ migrate = true } = {}) {
       const info = sqlite.prepare(sql).run(...params);
       return { success: true, meta: info };
     },
-  });
+    };
+  };
   return {
     _sqlite: sqlite,
     prepare(sql) {
