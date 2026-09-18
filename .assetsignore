@@ -6,9 +6,12 @@ node_modules/
 .gitignore
 .assetsignore
 worker.js
+registry.js
 wrangler.jsonc
 package.json
 package-lock.json
+migrations/
+tests/
 *.zip
 *.pem
 School-Manager-Setup.exe
