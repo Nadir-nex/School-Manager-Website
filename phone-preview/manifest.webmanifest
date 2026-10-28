@@ -1,0 +1,9 @@
+{
+  "short_name": "School Companion",
+  "name": "School Companion (demo)",
+  "start_url": "./index.html",
+  "display": "standalone",
+  "dir": "auto",
+  "background_color": "#f1f5f9",
+  "theme_color": "#1d4ed8"
+}

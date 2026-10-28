@@ -1,0 +1,38 @@
+/* Print report layout: only the report content prints; app chrome hides.
+   Used with window.print() -> Save as PDF. */
+@page {
+  size: A4;
+  margin: 12mm;
+}
+
+@media print {
+  .no-print, .topbar, .actions, .export-row, .filters, .demo-banner {
+    display: none !important;
+  }
+
+  body { background: #fff; }
+  .app { max-width: none; }
+  .content { padding: 0; }
+
+  h1, h2 { font-size: 16pt; }
+  h3 { font-size: 13pt; }
+
+  .cards, .list { display: block; }
+  .card, .list li {
+    box-shadow: none;
+    border: 1px solid #94a3b8;
+    border-radius: 0;
+    break-inside: avoid;
+    margin-bottom: 6px;
+  }
+
+  table.report { width: 100%; border-collapse: collapse; }
+  table.report th, table.report td {
+    border: 1px solid #94a3b8;
+    padding: 4px 8px;
+    font-size: 10pt;
+  }
+
+  /* Keep Arabic shaping; isolate numbers/dates from bidi reordering. */
+  .num, .badge { direction: ltr; unicode-bidi: isolate; }
+}

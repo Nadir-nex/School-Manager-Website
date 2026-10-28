@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <meta name="theme-color" content="#0f172a" />
+  <meta name="description" content="Nex Core — School Manager mobile companion." />
+  <title>Nex Core — School Manager</title>
+  <link rel="stylesheet" href="styles/rebuild.css" />
+  <link rel="manifest" href="manifest.webmanifest" />
+  <script type="importmap">
+    {
+      "imports": {
+        "fflate": "./node_modules/fflate/esm/browser.js",
+        "xlsx": "./node_modules/xlsx/xlsx.mjs"
+      }
+    }
+  </script>
+</head>
+<body>
+  <div id="app" class="app"></div>
+  <noscript>This application needs JavaScript.</noscript>
+  <script type="module" src="src/rebuild.js"></script>
+</body>
+</html>
