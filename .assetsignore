@@ -7,6 +7,7 @@ node_modules/
 .assetsignore
 worker.js
 registry.js
+cloudpublish.js
 wrangler.jsonc
 package.json
 package-lock.json
