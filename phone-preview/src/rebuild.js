@@ -155,6 +155,18 @@ function formatWeekdays(weekdays) {
     }
   }).join(", ");
 }
+function formatSessionDate(value) {
+  try {
+    return new Intl.DateTimeFormat(state.lang, {
+      weekday: "long",
+      day: "numeric",
+      month: "long",
+      year: "numeric"
+    }).format(new Date(`${value}T00:00:00`));
+  } catch {
+    return String(value);
+  }
+}
 
 function renderTrendChart(trendMonths) {
   const rtl = isRtl(state.lang);
@@ -162,7 +174,7 @@ function renderTrendChart(trendMonths) {
   const height = 170;
   const padTop = 12;
   const padBottom = 34;
-  const padGutter = 46;
+  const padGutter = rtl ? 62 : 46;
   const padInner = 12;
   const padLeft = rtl ? padInner : padGutter;
   const padRight = rtl ? padGutter : padInner;
@@ -182,7 +194,7 @@ function renderTrendChart(trendMonths) {
   const gridLines = [0, 0.25, 0.5, 0.75, 1].map((ratio) => {
     const y = padTop + plotH - ratio * plotH;
     const value = Math.round(min + (max - min) * ratio);
-    const labelX = rtl ? width - padRight + 6 : padLeft - 6;
+    const labelX = rtl ? width - padRight + 8 : padLeft - 6;
     const anchor = rtl ? "start" : "end";
     return `<line x1="${padLeft}" y1="${y}" x2="${width - padRight}" y2="${y}" class="grid-line" />
       <text x="${labelX}" y="${y + 4}" class="axis-label" text-anchor="${anchor}">${Math.round(value / 1000)}k</text>`;
@@ -247,8 +259,12 @@ function renderOverview() {
   const attention = d.attention.length
     ? d.attention.map((item) => `<li><span class="attention-label">${esc(t(`dashboard.attention.${item.key}`))}</span><strong class="attention-count">${item.count}</strong></li>`).join("")
     : `<li><span>${esc(t("dashboard.noAttention"))}</span></li>`;
-  const attendanceTotal = d.presentCount + d.absentCount;
+  const attendanceTotal = d.presentCount + d.absentCount + d.notRecordedSessions;
   const attendancePercent = attendanceTotal > 0 ? Math.round((d.presentCount / attendanceTotal) * 100) : 0;
+  const presentPct = attendanceTotal > 0 ? (d.presentCount / attendanceTotal) * 100 : 0;
+  const absentPct = attendanceTotal > 0 ? (d.absentCount / attendanceTotal) * 100 : 0;
+  const notRecordedPct = attendanceTotal > 0 ? (d.notRecordedSessions / attendanceTotal) * 100 : 0;
+  const attendanceGradient = `conic-gradient(var(--paid) 0 ${presentPct}%, var(--unpaid) ${presentPct}% ${presentPct + absentPct}%, var(--partial) ${presentPct + absentPct}% 100%)`;
   return `
     ${renderHeader()}
     <section class="demo-banner" role="status">${esc(t("dashboard.demoBadge"))}</section>
@@ -287,7 +303,7 @@ function renderOverview() {
       <section class="panel">
         <h2>${esc(t("dashboard.attendanceSummary"))}</h2>
         <div class="attendance-summary">
-          <div class="attendance-ring" style="--value:${attendancePercent}">
+          <div class="attendance-ring" style="background:${attendanceGradient}">
             <span>${attendancePercent}%</span>
           </div>
           <ul class="status-list">
@@ -539,7 +555,7 @@ function renderAttendance() {
     const sessionCards = sessions.map((session) => {
       const present = state.data.attendance.filter((a) => a.sessionId === session.id).length;
       return `<button class="session-card" data-action="open-session" data-id="${session.id}">
-        <strong>${esc(session.sessionDate)}</strong>
+        <strong>${esc(formatSessionDate(session.sessionDate))}</strong>
         <span class="meta">${esc(session.startTime)}–${esc(session.endTime)}</span>
         <span class="meta">${present} ${esc(t("attendance.present"))} · ${session.initialized ? "" : esc(t("attendance.notRecorded"))}</span>
       </button>`;
@@ -565,7 +581,7 @@ function renderAttendance() {
     return `<button class="group-card" data-action="open-attendance-group" data-id="${group.id}">
       <strong>${esc(group.name)}</strong>
       <span class="meta">${esc(group.teacherId ? teacherById(group.teacherId)?.name : t("common.unknown"))}</span>
-      <span class="meta">${formatWeekdays(group.weekdays)}${group.weekdays?.length ? " · " : ""}${sessions.length} ${esc(t("attendance.sessions"))}</span>
+      <span class="meta">${sessions.length} ${esc(t("attendance.sessions"))} · ${initialized} ${esc(t("dashboard.initialized"))}</span>
       <span class="meta">${initialized} ${esc(t("dashboard.initialized"))} · ${present} ${esc(t("attendance.present"))}</span>
     </button>`;
   }).join("");
@@ -574,11 +590,6 @@ function renderAttendance() {
     ${renderHeader()}
     <main class="screen">
       <h2 class="screen-title">${esc(t("attendance.title"))}</h2>
-      <label class="field">
-        <span>${esc(t("payments.month"))}</span>
-        <input id="attendance-month" type="month" value="${esc(state.attendanceMonth)}" />
-      </label>
-      <p class="meta">${esc(t("common.all"))}: ${esc(t("attendance.groups"))}</p>
       <p class="meta">Select a group to view its sessions.</p>
       <div class="group-list">${groupCards}</div>
     </main>
