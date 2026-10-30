@@ -194,7 +194,7 @@ function renderTrendChart(trendMonths) {
   const gridLines = [0, 0.25, 0.5, 0.75, 1].map((ratio) => {
     const y = padTop + plotH - ratio * plotH;
     const value = Math.round(min + (max - min) * ratio);
-    const labelX = rtl ? width - padRight + 12 : padLeft - 6;
+    const labelX = rtl ? width - (padLeft - 6) : padLeft - 6;
     const anchor = rtl ? "start" : "end";
     return `<line x1="${padLeft}" y1="${y}" x2="${width - padRight}" y2="${y}" class="grid-line" />
       <text x="${labelX}" y="${y + 4}" class="axis-label" text-anchor="${anchor}">${Math.round(value / 1000)}k</text>`;
