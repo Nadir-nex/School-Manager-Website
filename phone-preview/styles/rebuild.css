@@ -233,6 +233,12 @@ select {
   display: grid;
   gap: 6px;
 }
+.attention-list li {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+}
 
 .meta {
   color: var(--muted);
@@ -566,6 +572,14 @@ html[dir="rtl"] .drawer.open {
   border: 1px solid var(--border);
   border-radius: 12px;
 }
+.summary-row--stacked {
+  flex-direction: column;
+  align-items: stretch;
+  gap: 4px;
+}
+.summary-title { display: block; }
+.summary-meta { display: block; }
+.summary-amount { display: block; text-align: end; }
 
 .row-actions {
   display: flex;

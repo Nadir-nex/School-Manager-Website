@@ -157,19 +157,23 @@ function formatWeekdays(weekdays) {
 }
 
 function renderTrendChart(trendMonths) {
+  const rtl = isRtl(state.lang);
   const width = 320;
   const height = 170;
-  const padLeft = 46;
-  const padRight = 12;
   const padTop = 12;
   const padBottom = 34;
+  const padGutter = 46;
+  const padInner = 12;
+  const padLeft = rtl ? padInner : padGutter;
+  const padRight = rtl ? padGutter : padInner;
   const plotW = width - padLeft - padRight;
   const plotH = height - padTop - padBottom;
   const max = Math.max(...trendMonths.map((m) => m.amount), 1);
   const min = 0;
   const xStep = trendMonths.length > 1 ? plotW / (trendMonths.length - 1) : 0;
   const points = trendMonths.map((m, i) => {
-    const x = padLeft + i * xStep;
+    const ratio = trendMonths.length > 1 ? i / (trendMonths.length - 1) : 0;
+    const x = rtl ? (width - padRight) - ratio * plotW : padLeft + ratio * plotW;
     const y = padTop + plotH - ((m.amount - min) / (max - min)) * plotH;
     return { x, y, value: m.amount, label: `${m.year}-${String(m.month).padStart(2, "0")}` };
   });
@@ -178,10 +182,12 @@ function renderTrendChart(trendMonths) {
   const gridLines = [0, 0.25, 0.5, 0.75, 1].map((ratio) => {
     const y = padTop + plotH - ratio * plotH;
     const value = Math.round(min + (max - min) * ratio);
+    const labelX = rtl ? width - padRight + 6 : padLeft - 6;
+    const anchor = rtl ? "start" : "end";
     return `<line x1="${padLeft}" y1="${y}" x2="${width - padRight}" y2="${y}" class="grid-line" />
-      <text x="${padLeft - 6}" y="${y + 4}" class="axis-label" text-anchor="end">${Math.round(value / 1000)}k</text>`;
+      <text x="${labelX}" y="${y + 4}" class="axis-label" text-anchor="${anchor}">${Math.round(value / 1000)}k</text>`;
   }).join("");
-  const xLabels = points.map((p) => `<text x="${p.x}" y="${height - 12}" class="axis-label" text-anchor="middle">${p.label.slice(5)}</text>`).join("");
+  const xLabels = points.map((p) => `<text x="${p.x.toFixed(1)}" y="${height - 12}" class="axis-label" text-anchor="middle">${p.label.slice(5)}</text>`).join("");
   const circles = points.map((p, i) => `<circle cx="${p.x.toFixed(1)}" cy="${p.y.toFixed(1)}" r="4" class="trend-point" tabindex="0" data-index="${i}" data-value="${p.value}" data-label="${p.label}" />`).join("");
   return `
     <div class="chart-wrap">
@@ -239,7 +245,7 @@ function renderOverview() {
   const d = state.dashboard;
   const trendMax = Math.max(...d.trendMonths.map((m) => m.amount), 1);
   const attention = d.attention.length
-    ? d.attention.map((item) => `<li><span>${esc(t(`dashboard.attention.${item.key}`))}</span><strong>${item.count}</strong></li>`).join("")
+    ? d.attention.map((item) => `<li><span class="attention-label">${esc(t(`dashboard.attention.${item.key}`))}</span><strong class="attention-count">${item.count}</strong></li>`).join("")
     : `<li><span>${esc(t("dashboard.noAttention"))}</span></li>`;
   const attendanceTotal = d.presentCount + d.absentCount;
   const attendancePercent = attendanceTotal > 0 ? Math.round((d.presentCount / attendanceTotal) * 100) : 0;
@@ -435,11 +441,9 @@ function renderPayments() {
         <div class="summary-list">
           ${groupSummaries.map((g) => `
             <article class="summary-row summary-row--stacked">
-              <div>
-                <strong>${esc(g.group.name)}</strong>
-                <span class="meta">${g.paid} ${esc(t("dashboard.paid"))} · ${g.partial} ${esc(t("dashboard.partial"))} · ${g.unpaid} ${esc(t("dashboard.unpaid"))}</span>
-              </div>
-              <strong>${esc(formatDZD(g.collected, state.lang))}</strong>
+              <strong class="summary-title">${esc(g.group.name)}</strong>
+              <span class="summary-meta">${g.paid} ${esc(t("dashboard.paid"))} · ${g.partial} ${esc(t("dashboard.partial"))} · ${g.unpaid} ${esc(t("dashboard.unpaid"))}</span>
+              <strong class="summary-amount">${esc(formatDZD(g.collected, state.lang))}</strong>
             </article>
           `).join("")}
         </div>
