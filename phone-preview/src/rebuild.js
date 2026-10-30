@@ -709,10 +709,12 @@ function bindEvents() {
     state.seed = String(Math.floor(Math.random() * 1000000000));
     state.settingsOpen = false;
     regenerate();
+    render();
   }));
   document.querySelectorAll("[data-action='new-seed']").forEach((el) => el.addEventListener("click", () => {
     state.seed = String(Math.floor(Math.random() * 1000000000));
     regenerate();
+    render();
   }));
 
   document.addEventListener("keydown", (e) => {
@@ -724,8 +726,15 @@ function bindEvents() {
 }
 
 document.title = "Nex Core — School Manager";
+document.documentElement.lang = state.lang;
+document.documentElement.dir = isRtl(state.lang) ? "rtl" : "ltr";
+
 if (document.readyState === "loading") {
-  document.addEventListener("DOMContentLoaded", () => { regenerate(); });
+  document.addEventListener("DOMContentLoaded", () => {
+    regenerate();
+    render();
+  });
 } else {
   regenerate();
+  render();
 }

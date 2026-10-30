@@ -519,6 +519,10 @@ const TRANSLATIONS = [
     "Capture d’écran de l’application Nex Core — School Manager Phone Companion",
   ],
   ["الهاتف", "Téléphone"],
+  [
+    "تطبيق Nex Core لإدارة المدارس على الهاتف",
+    "Application mobile Nex Core — School Manager",
+  ],
 ];
 const ARABIC_TO_FRENCH = new Map(TRANSLATIONS);
 const FRENCH_TO_ARABIC = new Map(
