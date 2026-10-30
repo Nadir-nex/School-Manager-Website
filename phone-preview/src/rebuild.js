@@ -1,8 +1,15 @@
 import { translate, isRtl, availableLanguages } from "./i18n.js";
-import { formatDZD } from "./export.js";
 import { generateDemoData, computeDashboard } from "./demo-data.js";
 
 function t(key) { return translate(state.lang, key); }
+function formatDZD(value, lang = state.lang) {
+  const amount = Number(value) || 0;
+  try {
+    return `${new Intl.NumberFormat(lang, { maximumFractionDigits: 0 }).format(amount)} DZD`;
+  } catch {
+    return `${amount} DZD`;
+  }
+}
 function esc(value) {
   return String(value ?? "")
     .replace(/&/g, "&amp;")
