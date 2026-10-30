@@ -494,6 +494,31 @@ const TRANSLATIONS = [
   ["rtl", "ltr"],
   ["94%", "94 %"],
   ["FR", "AR"],
+  [
+    "رفيق هاتف مجاني",
+    "Compagnon téléphone gratuit",
+  ],
+  [
+    "Nex Core — School Manager Phone Companion",
+    "Nex Core — Compagnon téléphone School Manager",
+  ],
+  [
+    "تطبيق هاتف مجاني يرافق برنامج School Manager. استكشف نظرة عامة على المدرسة، التلاميذ، المدفوعات والحضور من خلال عرض تفاعلي يستخدم بيانات تجريبية فقط.",
+    "Application téléphone gratuite accompagnant School Manager. Explorez la vue d’ensemble de l’école, les élèves, les paiements et la présence grâce à une démonstration interactive utilisant uniquement des données fictives.",
+  ],
+  [
+    "استكشف تطبيق الهاتف",
+    "Explorer l’application téléphone",
+  ],
+  [
+    "بيانات تجريبية · لا توجد بيانات عملاء حقيقية · يعمل في المتصفح وAndroid لاحقاً",
+    "Données fictives · aucune donnée client réelle · fonctionne dans le navigateur, puis Android",
+  ],
+  [
+    "لقطة شاشة من تطبيق Nex Core — School Manager Phone Companion",
+    "Capture d’écran de l’application Nex Core — School Manager Phone Companion",
+  ],
+  ["الهاتف", "Téléphone"],
 ];
 const ARABIC_TO_FRENCH = new Map(TRANSLATIONS);
 const FRENCH_TO_ARABIC = new Map(
