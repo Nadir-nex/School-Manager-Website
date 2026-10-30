@@ -234,6 +234,22 @@ export function latestKeyFor(customerId) {
   return `backups/${customerId}/latest.zip`;
 }
 
+export function currentKeyFor(customerId) {
+  return `backups/${customerId}/current.zip`;
+}
+
+export function currentManifestKeyFor(customerId) {
+  return `backups/${customerId}/current.json`;
+}
+
+export function phoneAccessKeyFor(tokenDigest) {
+  return `phone-access/${tokenDigest}.json`;
+}
+
+export function publishGrantKeyFor(grantId) {
+  return `publish-grants/${grantId}.json`;
+}
+
 // --- Request validation ----------------------------------------------------
 
 function err(error, status = 422) {

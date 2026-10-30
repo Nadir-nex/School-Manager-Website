@@ -24,9 +24,14 @@
 // - Locked customers fail closed (customer_locked), same as grants.
 
 export const PHONE_RESOLVE_PATH = "/api/v1/phone/resolve";
+export const PHONE_DOWNLOAD_PATH = "/api/v1/phone/download";
+export const PHONE_REGISTER_PATH = "/api/v1/phone/register";
+export const PHONE_REVOKE_PATH = "/api/v1/phone/revoke";
 
 // Same budget as heartbeats: identification traffic, not uploads.
 export const PHONE_RESOLVE_RATE_LIMIT = [30, 10 * 60 * 1000];
+export const PHONE_DOWNLOAD_RATE_LIMIT = [30, 10 * 60 * 1000];
+export const PHONE_REGISTER_RATE_LIMIT = [10, 10 * 60 * 1000];
 
 const HASH_RE = /^[A-Za-z0-9_-]{16,128}$/;
 

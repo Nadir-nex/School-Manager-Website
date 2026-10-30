@@ -1,10 +1,10 @@
 {
-  "version": "2.1.6",
+  "version": "2.1.7",
   "downloadUrl": "https://school-manager-website.ywkuoamb.workers.dev/School-Manager-Setup.exe",
   "sha256": "",
   "notes": {
-    "ar": "تحسينات في الاستقرار والأداء.",
-    "fr": "Améliorations de stabilité et de performance.",
-    "en": "Stability and performance improvements."
+    "ar": "تحسينات في خدمة الهاتف والنسخ الاحتياطي السحابي.",
+    "fr": "Améliorations du service téléphone et des sauvegardes cloud.",
+    "en": "Phone service and cloud backup improvements."
   }
 }
