@@ -3512,3 +3512,29 @@ footer p {
     width: min(100%, 280px);
   }
 }
+
+.phone-preview-cta {
+  background: var(--blue);
+  color: #fff;
+  border-radius: 14px;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  font-weight: 800;
+  transition:
+    transform 0.2s,
+    box-shadow 0.2s,
+    background 0.2s;
+  display: inline-flex;
+  min-height: 58px;
+  padding: 0 26px;
+  font-size: 1rem;
+  box-shadow: 0 12px 28px #246bfe45;
+  text-decoration: none;
+}
+
+.phone-preview-cta:hover {
+  background: #1559e8;
+  transform: translateY(-2px);
+  box-shadow: 0 16px 34px #246bfe57;
+}
